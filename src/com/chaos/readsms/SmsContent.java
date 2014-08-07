@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -26,9 +27,13 @@ public class SmsContent {
 	public List<SmsInfo> getSmsInfo() {
 		String[] projection = new String[] { "_id", "address", "person",
 				"body", "date", "type" };
-		@SuppressWarnings("deprecation")
-		Cursor cursor = activity.managedQuery(uri, projection, null, null,
-				"date desc");
+
+//		@SuppressWarnings("deprecation")
+//		Cursor cursor = activity.managedQuery(uri, projection, null, null,
+//				"date desc");
+		
+		ContentResolver cr = activity.getContentResolver();
+		Cursor cursor = cr.query(uri, projection, null, null, "date desc");
 
 		int nameColumn = cursor.getColumnIndex("person");
 		int phoneNumberColumn = cursor.getColumnIndex("address");
