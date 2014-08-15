@@ -69,6 +69,9 @@ public class MainActivity extends Activity {
 					.get(position).getSmsbody());
 			((TextView) convertView.findViewById(R.id.sms_name)).setText(infos
 					.get(position).getName());
+			((TextView) convertView.findViewById(R.id.sms_phonenumber))
+					.setText(infos.get(position).getPhoneNumber());
+			((TextView) convertView.findViewById(R.id.sms_date)).setText(infos.get(position).getDate()); 
 			return convertView;
 		}
 

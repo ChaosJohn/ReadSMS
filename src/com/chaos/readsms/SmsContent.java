@@ -1,6 +1,8 @@
 package com.chaos.readsms;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -42,10 +44,10 @@ public class SmsContent {
 		int typeColumn = cursor.getColumnIndex("type");
 		if (cursor != null) {
 			int i = 0;
-			while (cursor.moveToNext() && i++ < 100) {
+			while (cursor.moveToNext() && i++ < 20) {
 				SmsInfo smsInfo = new SmsInfo();
 				smsInfo.setName(cursor.getString(nameColumn));
-				smsInfo.setDate(cursor.getString(dateColumn));
+				smsInfo.setDate(dateFromLongToString(cursor.getString(dateColumn)));
 				smsInfo.setPhoneNumber(cursor.getString(phoneNumberColumn));
 				smsInfo.setSmsbody(cursor.getString(smsbodyColumn));
 				smsInfo.setType(cursor.getString(typeColumn));
@@ -117,6 +119,13 @@ public class SmsContent {
 			return cursor.getString(2); // 获取姓名
 		}
 		return null;
+	}
+	
+	public String dateFromLongToString(String dateLong) {
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//前面的lSysTime是秒数，先乘1000得到毫秒数，再转为java.util.Date类型
+		java.util.Date dt = new Date(Long.parseLong(dateLong));  
+		return sdf.format(dt);  //得到精确到秒的表示：08/31/2006 21:08:00
 	}
 
 }
